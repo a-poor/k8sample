@@ -7,7 +7,7 @@ RUN go build -o /app/k8sample-server .
 
 FROM alpine
 WORKDIR /app
-COPY --from=builder /app/k8sample-server /k8sample-server
+COPY --from=builder /app/k8sample-server /app/k8sample-server
 ENV APP_HOST="0.0.0.0"
 ENV APP_PORT=8080
 EXPOSE 8080
