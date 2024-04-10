@@ -3,7 +3,7 @@ WORKDIR /app
 COPY go.mod .
 RUN go mod download
 COPY . .
-RUN go build -o k8sample-server .
+RUN go build -o /app/k8sample-server .
 
 FROM scratch
 COPY --from=builder /app/k8sample-server /k8sample-server
