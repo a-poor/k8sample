@@ -40,13 +40,14 @@ func main() {
 		slog.Info("Incoming request", "method", r.Method, "path", r.URL.Path, "remote", r.RemoteAddr)
 		w.Header().Set("Content-Type", "text/html")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("<h1>Hello, World!</h1>"))
+		w.Write([]byte("<h1>Hello, World!</h1>\n"))
 	})
 	mux.HandleFunc("GET /ping/{$}", func(w http.ResponseWriter, r *http.Request) {
 		slog.Info("Incoming request", "method", r.Method, "path", r.URL.Path, "remote", r.RemoteAddr)
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{"success": true, "msg": "pong"}\n`))
+    now := time.Now().Format(time.RFC3339)
+    w.Write([]byte(`{"success": true, "msg": "pong","now":"`+now+`"}`+"\n"))
 	})
 	mux.HandleFunc("POST /echo/{$}", func(w http.ResponseWriter, r *http.Request) {
 		slog.Info("Incoming request", "method", r.Method, "path", r.URL.Path, "remote", r.RemoteAddr)
